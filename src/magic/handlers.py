@@ -1,7 +1,8 @@
 from dataclasses import dataclass, field
-from .base import Magick, WhereToFind, MagickType
+from .base import Magick, MagickType
 from typing import List
 from json import dumps
+from src.shared import WhereToFind
 
 
 @dataclass
@@ -11,8 +12,11 @@ class MagicksCollection:
     def _add_magick(self, magick: Magick):
         self.magicks.append(magick)
 
-    def serialise(self) -> str:
-        return dumps([magick.serialise() for magick in self.magicks])
+    def get_magicks(self) -> List[Magick]:
+        return self.magicks
+
+    def serialise(self) -> dict:
+        return [magick.serialise() for magick in self.magicks]
 
 
 @dataclass
@@ -27,7 +31,7 @@ class ArcaneMagicks(MagicksCollection):
         find: WhereToFind,
     ):
         self._add_magick(
-            Magick(name, MagickType.ARCANE, effects, tips, license, jobs, find)
+            Magick(name, MagickType.ARCANE.value, effects, tips, license, jobs, find)
         )
 
 
@@ -43,7 +47,7 @@ class BlackMagicks(MagicksCollection):
         find: WhereToFind,
     ):
         self._add_magick(
-            Magick(name, MagickType.BLACK, effects, tips, license, jobs, find)
+            Magick(name, MagickType.BLACK.value, effects, tips, license, jobs, find)
         )
 
 
@@ -59,7 +63,7 @@ class GreenMagicks(MagicksCollection):
         find: WhereToFind,
     ):
         self._add_magick(
-            Magick(name, MagickType.GREEN, effects, tips, license, jobs, find)
+            Magick(name, MagickType.GREEN.value, effects, tips, license, jobs, find)
         )
 
 
@@ -75,7 +79,7 @@ class TimeMagicks(MagicksCollection):
         find: WhereToFind,
     ):
         self._add_magick(
-            Magick(name, MagickType.TIME, effects, tips, license, jobs, find)
+            Magick(name, MagickType.TIME.value, effects, tips, license, jobs, find)
         )
 
 
@@ -91,5 +95,5 @@ class WhiteMagicks(MagicksCollection):
         find: WhereToFind,
     ):
         self._add_magick(
-            Magick(name, MagickType.WHITE, effects, tips, license, jobs, find)
+            Magick(name, MagickType.WHITE.value, effects, tips, license, jobs, find)
         )
