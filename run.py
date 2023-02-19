@@ -5,6 +5,7 @@ from src.magic.scraper import (
     TimeMagickPage,
     WhiteMagickPage,
 )
+from src.accessories.scrapers import AccessoriesPage
 
 from alive_progress import alive_bar
 
@@ -29,5 +30,13 @@ def save_magick(filepath: str):
     serial.save(magicks)
 
 
+def save_accessories(filepath: str):
+    scraper = AccessoriesPage()
+    serial = Serialiser(filepath)
+    scraper.load()
+    serial.save(scraper.accessories.serialise())
+
+
 if __name__ == "__main__":
-    save_magick("./magick.json")
+    # save_magick("./magick.json")
+    save_accessories("./accessories.json")
